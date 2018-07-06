@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Tenderness calculator</title>
+  </head>
+  <body>
+    <h1>Vegetable maturity</h1>
+
+{{ script|safe }}
+{{ div|safe }}
+
+  <p> {{ feature_names }} </p>
+
+{{ dropzone.create('/') }}
+<button id="upload" style="float: right">Upload</button>
+
+{{ dropzone.load_js() }}
+{{ dropzone.config() }}
+
+  </body>
+</html>
