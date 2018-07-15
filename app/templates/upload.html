@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+   <body>
+
+<form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+    <strong>Sample to predict:</strong><br>
+    <input id="file-picker" type="file" accept=".spc" name="predict" >
+    <div id="msg"></div>
+    <input type="submit" value="Predict!" id="upload-button">
+</form>
+
+<form id="upload-form" action="{{ url_for('construct') }}" method="POST" enctype="multipart/form-data">
+    <strong>Construct the database and train model:</strong><br>
+    <input id="file-picker" type="file" accept=".spc" name="spectrumset" multiple>
+    <div id="msg"></div>
+    <input id="file-picker" type="file" accept=".xlsx" name="target">
+    <div id="msg"></div>
+    <input type="submit" value="Construct and train!" id="upload-button">
+</form>
+
+<form action="{{ url_for('showdb') }}" method="POST" >
+    <strong>Admin:</strong><br>
+    <input type="submit" value="Show database">
+</form>
+
+   </body>
+</html>
