@@ -66,11 +66,11 @@ def construct():
     if len(request.files.getlist("target")) == 0:
         return 'Please upload targets'
 
-    spectras = specreader.load_files(request.files.getlist("spectrumset"))
     targets = databasemng.read_targets(request.files.getlist("target")[0])
+    spectras = specreader.load_files(request.files.getlist("spectrumset"))
 
     databasemng.createdb(spectras, targets)
-    return 'in progress'
+    return 'in good progress'
 
 @app.route("/showdb", methods=['POST'])
 def showdb():

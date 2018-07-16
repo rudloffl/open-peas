@@ -38,8 +38,8 @@ class Spectrum_reader():
 
             subfolder = basedir.split('/')[:-1]
             temppath = os.path.join('/', *subfolder, self.bcupath, 'temp.spc')
-            print(basedir)
-            print(temppath)
+            #print(basedir)
+            #print(temppath)
             file.save(temppath)
 
             f = spc.File(temppath)
