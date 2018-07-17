@@ -20,16 +20,17 @@ class Plot_tool():
         pass
 
     def get_spectrums(self, df):
-        x = df.columns
-        y = df.iloc[0]
+        cols = ['wl_{}'.format(x) for x in range(950, 1530+1, 2)]
+        x = [int(x) for x in range(950, 1530+1, 2)]
+        y = df[cols].iloc[0]
 
 
         TOOLS = "pan,wheel_zoom,box_zoom,reset,save,box_select,hover"
 
         # create a new plot with a title and axis labels
         p = figure(title="Spectrogram sample",
-                   x_axis_label='x',
-                   y_axis_label='y',
+                   x_axis_label='Wave length',
+                   y_axis_label='Intensity',
                    tools=TOOLS,
                    )
 

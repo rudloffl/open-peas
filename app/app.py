@@ -13,8 +13,8 @@ __author__ = 'Larry'
 from modules.spectrum import Spectrum_reader
 specreader = Spectrum_reader()
 
-#from modules.victor import Victor
-#victor=Victor()
+from modules.victor import Victor
+victor=Victor()
 
 from modules.plot_tool import Plot_tool
 plot_tool = Plot_tool()
@@ -39,16 +39,22 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 @app.route("/")
 def index():
-    return render_template("upload.html")
+    return render_template("upload.html",
+                            model_trained=victor.trained,
+                            rmsecv=victor.rmsecv,
+                            datasetsize=databasemng.get_db(shape=True),)
 
 @app.route("/result", methods=['POST'])
 def upload():
-    #print(request.files.getlist("predict"))
+    if not victor.trained:
+        return 'Please train the model first !'
 
     if len(request.files.getlist("predict")) == 0:
         return 'Nofile'
 
     spectras = specreader.load_files(request.files.getlist("predict"))
+
+    crushingval = victor.predict(spectras)[0]
 
     plot=plot_tool.get_spectrums(spectras)
     script, div = components(plot)
@@ -57,6 +63,7 @@ def upload():
                            script=script,
                            div=div,
                            feature_names=feature_names,
+                           crushingval=crushingval,
                       )
 
 @app.route("/constructset", methods=['POST'])
@@ -68,9 +75,10 @@ def construct():
 
     targets = databasemng.read_targets(request.files.getlist("target")[0])
     spectras = specreader.load_files(request.files.getlist("spectrumset"))
-
     databasemng.createdb(spectras, targets)
-    return 'in good progress'
+
+    victor.fit(databasemng.get_db())
+    return 'Congratulation, the model has been trained and is ready to use, RMSECV = {}'.format(victor.rmsecv)
 
 @app.route("/showdb", methods=['POST'])
 def showdb():

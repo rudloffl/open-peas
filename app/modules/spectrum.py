@@ -24,6 +24,7 @@ class Spectrum_reader():
         """loads the spc file and returns a pandas dataframe"""
 
         columns = []
+        #columns.extend(['wl_{}'.format(x) for x in range(950, 1530+1, 2)])
         columns.extend([int(x) for x in range(950, 1530+1, 2)])
         dataset = pd.DataFrame(columns=columns)
 
@@ -38,8 +39,6 @@ class Spectrum_reader():
 
             subfolder = basedir.split('/')[:-1]
             temppath = os.path.join('/', *subfolder, self.bcupath, 'temp.spc')
-            #print(basedir)
-            #print(temppath)
             file.save(temppath)
 
             f = spc.File(temppath)
@@ -51,42 +50,15 @@ class Spectrum_reader():
 
             # Additionnal information
             misc = pd.DataFrame(details, index=[1])
-            df = pd.concat([df, misc], axis =1)
+            df = pd.concat([df, misc], axis=1)
 
             # Merging to the dataset to return
             dataset = dataset.append(df, ignore_index=True)
 
         #print(dataset.shape)
-
+        dataset.rename({int(k):'wl_{}'.format(k) for k in [int(x) for x in range(950, 1530+1, 2)]}, axis=1, inplace=True)
+        #dataset.to_csv('spectrum.csv')
         return dataset
-
-
-
-    def get_plot_sample(self):
-        # prepare some data
-        x = np.linspace(-5,5,200)
-        y = x**2
-
-
-        TOOLS = "pan,wheel_zoom,box_zoom,reset,save,box_select,hover"
-
-        # create a new plot with a title and axis labels
-        p = figure(title="A really odd Spectrogram",
-                   x_axis_label='x',
-                   y_axis_label='y',
-                   tools=TOOLS,
-                   )
-
-        # add a line renderer with legend and line thickness
-        p.line(x, y,
-               legend="Squared Func.",
-               line_width=3,
-               line_color='seagreen',
-               line_join='bevel',
-               name='green peas')
-
-        # show the results
-        return p
 
 if __name__ == '__main__':
     specreader = Spectrum_reader()
