@@ -22,6 +22,10 @@ plot_tool = Plot_tool()
 from modules.database_mng import Databasemng
 databasemng = Databasemng()
 
+from modules.sql_manager import Chester
+chester = Chester()
+chester.createdb()
+
 
 
 from flask import Flask, render_template, request, redirect, url_for, abort
@@ -39,7 +43,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 @app.route("/")
 def index():
-    return render_template("upload.html",
+    return render_template("home.html",
                             model_trained=victor.trained,
                             rmsecv=victor.rmsecv,
                             datasetsize=databasemng.get_db(shape=True),)
@@ -83,6 +87,38 @@ def construct():
 @app.route("/showdb", methods=['POST'])
 def showdb():
     return 'to do !'
+
+@app.route("/admin", methods=['POST'])
+def admin():
+    return render_template('admin.html')
+
+@app.route("/admin_crop", methods=['POST'])
+def admin_crop():
+    header = chester.get_columns('MATERIAL')
+    return render_template('admin_crop.html', header=header,
+                                            existing_table=False,
+                                            table=[],
+                                            existing_cname=[],
+                                            existing_supp=[],
+                                            existing_variety={},
+                                            existing_ref=[])
+
+@app.route("/admin_spectras", methods=['POST'])
+def admin_spectras():
+    return render_template('admin_spectras.html')
+
+@app.route("/admin_customers", methods=['POST'])
+def admin_customers():
+    return render_template('admin_customers.html')
+
+@app.route("/admin_conditions", methods=['POST'])
+def admin_conditions():
+
+    return render_template('admin_conditions.html')
+
+@app.route("/admin_units", methods=['POST'])
+def admin_units():
+    return render_template('admin_units.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

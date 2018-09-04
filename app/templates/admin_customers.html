@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Crop Administration</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='style.css') }} media="screen" />
+</head>
+
+
+<body>
+  <h1>
+    Administration console
+  </h1>
+
+<form action="#" method="POST" >
+    <strong>Add crop</strong><br>
+    common name: <div class="tooltip">
+      <input type="text" name="common_name">
+      <span class="tooltiptext tooltip-left">Peas, peach...</span>
+      </div>
+      <br>
+    Variety: <input type="text" name="variety"><br>
+    Seed supplier: <input type="text" name="seed_supplier"><br>
+    reference: <input type="text" name="reference"><br>
+    link: <input type="text" name="link"><br>
+    <input type="submit" value="Add crop">
+</form>
+
+</br>
+
+
+
+
+</body>
+</html>

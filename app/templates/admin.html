@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Administration Window</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='style.css') }} media="screen" />
+</head>
+
+<h1>
+  Administration Window
+</h1>
+
+<form action="{{ url_for('admin_crop') }}" method=post>
+    <input type="submit" value="Crop admin" />
+</form>
+
+<form action="{{ url_for('admin_spectras') }}" method=post>
+    <input type="submit" value="Spectras admin" />
+</form>
+
+<form action="{{ url_for('admin_customers') }}" method=post>
+    <input type="submit" value="Customers admin" />
+</form>
+
+<form action="{{ url_for('admin_conditions') }}" method=post>
+    <input type="submit" value="Conditions admin" />
+</form>
+
+<form action="{{ url_for('admin_units') }}" method=post>
+    <input type="submit" value="Units admin" />
+</form>
+
+<h1>
+  About the database
+</h1>
+
+<p>
+  Some specs... WORK IN PROGRESS
+</p>
+
+</body>
+</html>

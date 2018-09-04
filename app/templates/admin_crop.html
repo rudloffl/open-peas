@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Crop Administration</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='style.css') }} media="screen" />
+</head>
+
+
+<body>
+  <h1>
+    Administration console
+  </h1>
+
+<form method="POST" >
+    <h2>Add crop...</h2>
+
+    <div class="tooltip">Common name:
+      <span class="tooltiptext tooltip">Peas, peach...</span>
+    </div>
+    <input list="common_name" name="common_name">
+    <datalist id="common_name">
+      <option value="Peach">
+      <option value="Peas">
+      <option value="Apple">
+      <option value="Avocado">
+    </datalist>
+    <br>
+
+    <div class="tooltip">Variety:
+      <span class="tooltiptext tooltip">Latin name</span>
+    </div>
+    <input list="variety" name="variety">
+    <datalist id="variety">
+      <option value="Peach1">
+      <option value="Peach2">
+      <option value="Peach3">
+      <option value="Peach4">
+    </datalist>
+    <br>
+
+    <div class="tooltip">Seed supplier:
+      <span class="tooltiptext tooltip">Seed supplier name</span>
+    </div>
+    <input list="seed_supplier" name="seed_supplier">
+    <datalist id="seed_supplier">
+      <option value="Monsanto">
+      <option value="Bayer">
+      <option value="Syngenta">
+    </datalist>
+    <br>
+
+    <div class="tooltip">Reference:
+      <span class="tooltiptext tooltip">Seed reference</span>
+    </div>
+    <input list="reference" name="reference">
+    <datalist id="reference">
+      <option value="a123">
+      <option value="b234">
+      <option value="c435">
+    </datalist>
+    <br>
+
+    <div class="tooltip">Link:
+      <span class="tooltiptext tooltip">Web Link for more details</span>
+    </div>
+    <input input="text" name="link">
+    <br>
+
+    <input type="submit" value="Add crop">
+</form>
+
+<h2>
+  Crop table
+</h2>
+
+  <table style="width:100%">
+   <tr>
+     <th>Firstname</th>
+     <th>Lastname</th>
+     <th>Age</th>
+   </tr>
+   {% if not existing_table %}
+   No entry yet :-(
+   {% else %}
+   <tr>
+     <td>Jill</td>
+     <td>Smith</td>
+     <td>50</td>
+   </tr>
+   <tr>
+     <td>Eve</td>
+     <td>Jackson</td>
+     <td>94</td>
+   </tr>
+   {% endif %}
+  </table>
+
+</body>
+</html>
