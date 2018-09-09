@@ -18,6 +18,7 @@ class Chester():
         self.connectdb()
 
     def closedb(self,):
+        self.cursor.close()
         self.conn.close()
 
     def connectdb(self):
