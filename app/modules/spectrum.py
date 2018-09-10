@@ -8,7 +8,8 @@ Created on Thu Jul  5 15:11:04 2018
 
 import numpy as np
 import pandas as pd
-import spc
+#import spc
+import spc.spc as spc
 from io import StringIO
 import os
 
@@ -33,9 +34,12 @@ class Spectrum_reader():
             filename = file.filename
 
             # Timestamp
-            timestamp = '-'.join(filename.split('_')[:2])
-            time = pd.to_datetime(timestamp, format='%Y%m%d-%H%M%S')
-            details['time'] = time
+            try:
+                timestamp = '-'.join(filename.split('_')[:2])
+                time = pd.to_datetime(timestamp, format='%Y%m%d-%H%M%S')
+                details['time'] = time
+            except:
+                details['time'] = np.nan
 
             subfolder = basedir.split('/')[:-1]
             temppath = os.path.join('/', *subfolder, self.bcupath, 'temp.spc')
@@ -62,4 +66,4 @@ class Spectrum_reader():
 
 if __name__ == '__main__':
     specreader = Spectrum_reader()
-    show(specreader.load_files())
+    print(specreader.load_files(['../data/peas/20180619_074624_1151_0_1.spc']))

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Simple Peas Victor</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='style.css') }} media="screen" />
+</head>
+
+<header>
+  <a href="http://www.smartnirs.com/" target='_blank'><img src="{{url_for('static', filename='smartNIRS_yellow.png')}}" alt="SmartNIRS" width="303" height="80"></a>
+</header>
+
+<h2>
+  Prediction system
+</h2>
+
+<form id="upload-form" action="{{ url_for('index') }}" method="POST" enctype="multipart/form-data">
+    <strong>Peas Spectra to predict:</strong><br>
+    <input id="file-picker" type="file" accept=".spc" name="predict" >
+    <div id="msg"></div>
+    <input type="submit" value="Predict!" id="upload-button">
+</form>
+
+<div>
+
+{% if prediction is not none %}
+
+<p> Crop : {{ vegetable }} </p>
+<p> Crushing value : {{ prediction }} </p>
+<p> RMSECV : {{ rmsecv }} </p>
+
+{{ script|safe }}
+{{ div|safe }}
+
+
+ {% endif %}
+
+</div>
+
+</body>
+</html>

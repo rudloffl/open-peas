@@ -19,12 +19,12 @@ victor=Victor()
 from modules.plot_tool import Plot_tool
 plot_tool = Plot_tool()
 
-from modules.database_mng import Databasemng
-databasemng = Databasemng()
+#from modules.database_mng import Databasemng
+#databasemng = Databasemng()
 
-from modules.sql_manager import Chester
-chester = Chester()
-chester.createdb()
+#from modules.sql_manager import Chester
+#chester = Chester()
+#chester.createdb()
 
 
 
@@ -41,12 +41,26 @@ app.config['SECRET_KEY'] = "12345"
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-@app.route("/")
-def index():
-    return render_template("home.html",
-                            model_trained=victor.trained,
-                            rmsecv=victor.rmsecv,
-                            datasetsize=databasemng.get_db(shape=True),)
+@app.route("/", methods=['POST', 'GET'])
+def index(prediction=None):
+    if request.method == 'GET':
+        return render_template("predict.html",
+                                prediction=prediction,
+                                vegetable='Peas',
+                                rmsecv=victor.rmsecv,
+                                )
+    else:
+        spectras = specreader.load_files(request.files.getlist("predict"))
+        crushingval = victor.predict(spectras)[0]
+        plot=plot_tool.get_spectrums(spectras)
+        script, div = components(plot)
+        return render_template("predict.html",
+                                prediction='{:.2f}'.format(crushingval),
+                                vegetable='Peas',
+                                rmsecv='{:.2f}'.format(victor.rmsecv),
+                                script=script,
+                                div=div
+                                )
 
 @app.route("/result", methods=['POST'])
 def upload():
