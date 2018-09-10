@@ -6,7 +6,7 @@ Created on Thu Jul  5 15:11:04 2018
 @author: Laurent Rudloff
 """
 
-import numpy as np
+#import numpy as np
 import pandas as pd
 #import spc
 from .spc.spc import *
