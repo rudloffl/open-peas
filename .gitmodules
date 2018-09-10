@@ -1,3 +1,3 @@
-[submodule "app/modules/spc"]
+[submodule "modules/spc"]
 	path = modules/spc
-	url = https://github.com/rohanisaac/spc.git
+	url = https://github.com/rohanisaac/spc
