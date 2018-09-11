@@ -9,7 +9,7 @@ Created on Thu Jul  5 15:11:04 2018
 #import numpy as np
 import pandas as pd
 #import spc
-from .spc.spc import *
+#from .spc.spc import *
 from io import StringIO
 import os
 
